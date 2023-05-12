@@ -11,13 +11,13 @@ import {
 const app = express();
 const PORT = 3000;
 let allRecipes = await getRecipes()
-let newRecipe = {
-  "id": "4c848d48-b81e-4d6f-b45d-7b3090f4f8eu",
-  "title": "Kellogs Cornflakes",
-  "ingredients": ["50g of cornflakes", "100ml of milk"],
-  "instructions": "Put the cornflakes in a bowl, add the milk. Eat with a spoon.",
-  "image": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Kellogg%27s_Corn_Flakes%2C_with_milk.jpg"
-}
+// let newRecipe = {
+//   "id": "4c848d48-b81e-4d6f-b45d-7b3090f4f8eu",
+//   "title": "Kellogs Cornflakes",
+//   "ingredients": ["50g of cornflakes", "100ml of milk"],
+//   "instructions": "Put the cornflakes in a bowl, add the milk. Eat with a spoon.",
+//   "image": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Kellogg%27s_Corn_Flakes%2C_with_milk.jpg"
+// }
 
 app.use(express.static("public"));
 app.use(express.json());
@@ -43,7 +43,7 @@ res.json(await responseObject(true, recipe))
 })
 //Create a new recipe
 app.post("/api/recipes", async (req,res) =>{
- let addedRecipe = await createRecipe(newRecipe) 
+ let addedRecipe = await createRecipe(req.body) 
  res.json(await responseObject(true, addedRecipe))
  console.log(req.body)
 })

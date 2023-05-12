@@ -26,8 +26,15 @@ function addIngredient(event) {
 
 function handleSubmit(event) {
   event.preventDefault();
-
   createRecipe();
+
+  const ingredientsList = document.querySelector("#ingredients-list");
+  ingredientsList.innerHTML = "";
+  
+  // empty input boxes when create recipe button clicked
+  document.querySelector("#title").value = "";
+  document.querySelector("#instructions").value = "";
+  document.querySelector("#image-url").value = "";
 }
 
 async function createRecipe() {
@@ -69,8 +76,12 @@ async function getRecipes() {
 }
 
 function renderRecipe(recipe) {
+  // const article = createRecipeView(recipe);
+  // recipesSection.appendChild(article);
   const article = createRecipeView(recipe);
-  recipesSection.appendChild(article);
+  const recipeContainer = document.createElement("div");
+  recipeContainer.appendChild(article);
+  recipesSection.appendChild(recipeContainer);
 }
 
 function createRecipeView({ title, ingredients, instructions, image }) {
