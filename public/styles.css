@@ -1,0 +1,123 @@
+body {
+  background-color: #f8f8f8;
+  font-family: "Patrick Hand", cursive;
+  padding: 20px;
+  color: #333;
+}
+
+h1 {
+  font-family: "Indie Flower", cursive;
+  color: #4a4a4a;
+  font-size: 3em;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+form {
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+form button {
+  padding: 10px 20px;
+  background-color: #00897b;
+  color: #fff;
+  border: none;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #00695c;
+}
+
+#add-ingredient {
+  margin-left: 10px;
+}
+
+#ingredients-list {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+#ingredients-list li {
+  background-color: #ffeb3b;
+  padding: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+
+#get-recipes {
+  display: block;
+  padding: 10px 20px;
+  background-color: #ff5722;
+  color: #fff;
+  border: none;
+  font-size: 1em;
+  cursor: pointer;
+  margin: 40px auto;
+  max-width: 600px;
+}
+
+#get-recipes:hover {
+  background-color: #e64a19;
+}
+
+#recipes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+#recipes article {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+#recipes h2 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+#recipes img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+#recipes ul {
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+#recipes p {
+  line-height: 1.6;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  form,
+  #get-recipes {
+    max-width: 100%;
+  }
+}
