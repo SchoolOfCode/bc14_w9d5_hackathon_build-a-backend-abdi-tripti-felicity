@@ -56,10 +56,11 @@ async function fillEditInput (recipeId , title, ingredients, instructions, image
   // document.querySelector("#ingredients-list").value = [...ingredients];
   // ingredients.forEach(ingredient => document.querySelector("#ingredients-list").value = ingredient);
   document.querySelector("#instructions").value = instructions;
-  getRecipes();
+
 }
 
 async function editRecipe() {
+  
   console.log(gatherFormData());
   const response = await fetch(`${url}/api/recipes`, {
     method: "PATCH",
@@ -72,7 +73,9 @@ async function editRecipe() {
 
 function handleEditSubmit(event) {
   event.preventDefault();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
   editRecipe();
+}
 
 async function createRecipe() {
   console.log(gatherFormData());
@@ -160,8 +163,8 @@ function createIngredientsList(ingredients) {
 
 function createIngredient(ingredient) {
   const li = document.createElement("li");
-  li.innerHTML = ingredient;
+  li.innerText = ingredient;
   return li;
 }
 
-getRecipes();}
+getRecipes();
