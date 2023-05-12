@@ -50,7 +50,12 @@ app.patch("/api/recipes/:id", async (req,res) => {
 
 
 //DELETE 
-
+// use id 4c848d48-b81e-4d6f-b45d-7b3090f4f8eu
+app.delete("/api/recipes/:id", async (req, res) => {
+  let id = req.params.id
+  let deletedRecipe = await deleteRecipeByID(id)
+  res.json(deletedRecipe)
+})
 
 
   app.listen(PORT, () => {

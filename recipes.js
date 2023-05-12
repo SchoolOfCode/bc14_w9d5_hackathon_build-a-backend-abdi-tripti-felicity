@@ -40,4 +40,14 @@ export async function updateRecipeByID(id, updatedRecipe) {
 }
 
 // DELETE A RECIPE BY ID
-export async function deleteRecipeByID(id) {}
+export async function deleteRecipeByID(id) {
+    let recipes = await getRecipes();
+    let index = recipes.findIndex((recipe) => recipe.id === id);
+    if (index === -1) {
+        return null;
+    } else {
+        let deletedRecipe = recipes.splice(index, 1)
+        await fs.writeFile(fileName, JSON.stringify(recipes));
+        return deletedRecipe;
+    }
+}
