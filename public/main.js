@@ -39,7 +39,7 @@ function handleSubmit(event) {
   document.querySelector("#image-url").value = "";
 }
 
-async function deleteRecipe (recipeId){
+async function deleteRecipe(recipeId){
     const response = await fetch(`${url}/api/recipes/${recipeId}`, {
       method: "DELETE",
     });
@@ -49,7 +49,8 @@ async function deleteRecipe (recipeId){
     getRecipes();
   }
 
-async function fillEditInput (recipeId , title, ingredients, instructions, image){
+async function fillEditInput(recipeId , title, ingredients, instructions, image){
+  window.scrollTo({ top: 0, behavior: 'smooth' });
   document.querySelector("#title").value = title;
   document.querySelector("#image-url").value = image;
   // TODO: INGREDIENTS NEEDS FIXING
@@ -60,7 +61,6 @@ async function fillEditInput (recipeId , title, ingredients, instructions, image
 }
 
 async function editRecipe() {
-  
   console.log(gatherFormData());
   const response = await fetch(`${url}/api/recipes`, {
     method: "PATCH",
@@ -69,12 +69,6 @@ async function editRecipe() {
   });
   const data = await response.json();
   console.log(data);
-}
-
-function handleEditSubmit(event) {
-  event.preventDefault();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  editRecipe();
 }
 
 async function createRecipe() {
