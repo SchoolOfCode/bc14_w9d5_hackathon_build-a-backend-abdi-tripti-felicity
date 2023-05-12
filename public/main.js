@@ -30,15 +30,15 @@ function handleSubmit(event) {
 
   const ingredientsList = document.querySelector("#ingredients-list");
   ingredientsList.innerHTML = "";
-  
+
   // empty input boxes when create recipe button clicked
   document.querySelector("#title").value = "";
   document.querySelector("#instructions").value = "";
   document.querySelector("#image-url").value = "";
 }
 
-async function deleteRecipe (title, recipeId){
-    const response = await fetch(`${url}/api/recipes/${title}`, {
+async function deleteRecipe (recipeId){
+    const response = await fetch(`${url}/api/recipes/${recipeId}`, {
       method: "DELETE",
     });
     const data = await response.json();
@@ -86,18 +86,14 @@ async function getRecipes() {
   payload.forEach(renderRecipe);
 }
 
-function renderRecipe(recipe, recipeId) {
-  // const article = createRecipeView(recipe);
-  // recipesSection.appendChild(article);
+function renderRecipe(recipe) {
   const article = createRecipeView(recipe);
   const recipeContainer = document.createElement("div");
   recipeContainer.appendChild(article);
   recipesSection.appendChild(recipeContainer);
 }
-//  const deleteButton = document.createElement("button");
-  // / deleteButton.innerText = "Delete";
-  //  deleteButton.addEventListener("click", () => deleteRecipe(title));
-function createRecipeView({ title, ingredients, instructions, image }) {
+
+function createRecipeView({ title, ingredients, instructions, image, id }) {
   const article = document.createElement("article");
   const h2 = document.createElement("h2");
   h2.innerText = title;
@@ -111,9 +107,11 @@ function createRecipeView({ title, ingredients, instructions, image }) {
   article.appendChild(img);
   article.appendChild(list);
   article.appendChild(p);
+
+  // Add delete recipe button and listener
   const deleteButton = document.createElement("button");
   deleteButton.innerText = "Delete recipe";
-  deleteButton.addEventListener("click", () => (title, recipeId));
+  deleteButton.addEventListener("click", () => (deleteRecipe(id)));
   article.appendChild(deleteButton)
 
   return article;

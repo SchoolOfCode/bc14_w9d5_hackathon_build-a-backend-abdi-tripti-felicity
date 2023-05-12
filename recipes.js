@@ -8,7 +8,6 @@ export async function getRecipes() {
     let Data = await fs.readFile(fileName, "utf8");
     let recipes = JSON.parse(Data);
     return recipes;
-
 }
 
 // GET A RECIPE BY ID
@@ -21,6 +20,7 @@ export async function getRecipeByID(id) {
 // CREATE A RECIPE
 export async function createRecipe(newRecipe) {
     let recipes = await getRecipes();
+    newRecipe.id = uuidv4();
     recipes.push(newRecipe)
     await fs.writeFile(fileName, JSON.stringify(recipes))
     return newRecipe;

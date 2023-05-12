@@ -11,13 +11,6 @@ import {
 const app = express();
 const PORT = 3000;
 let allRecipes = await getRecipes()
-// let newRecipe = {
-//   "id": "4c848d48-b81e-4d6f-b45d-7b3090f4f8eu",
-//   "title": "Kellogs Cornflakes",
-//   "ingredients": ["50g of cornflakes", "100ml of milk"],
-//   "instructions": "Put the cornflakes in a bowl, add the milk. Eat with a spoon.",
-//   "image": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Kellogg%27s_Corn_Flakes%2C_with_milk.jpg"
-// }
 
 app.use(express.static("public"));
 app.use(express.json());
@@ -63,7 +56,6 @@ app.delete("/api/recipes/:id", async (req, res) => {
   let deletedRecipe = await deleteRecipeByID(id)
   res.json(await responseObject(true, deletedRecipe))
 })
-
 
   app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
