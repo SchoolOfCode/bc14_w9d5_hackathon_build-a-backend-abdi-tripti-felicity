@@ -11,7 +11,7 @@ const editRecipeButton = document.querySelector("#edit-button");
 ingredientButton.addEventListener("click", addIngredient);
 submitButton.addEventListener("click", handleSubmit);
 getRecipeButton.addEventListener("click", handleClick);
-editRecipeButton.addEventListener("click", editRecipe);
+
 
 function addIngredient(event) {
   event.preventDefault();
@@ -60,9 +60,9 @@ async function fillEditInput(recipeId , title, ingredients, instructions, image)
 
 }
 
-async function editRecipe() {
+async function editRecipe(recipeId) {
   console.log(gatherFormData());
-  const response = await fetch(`${url}/api/recipes`, {
+  const response = await fetch(`${url}/api/recipes/${recipeId} `, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(gatherFormData()),
@@ -81,6 +81,7 @@ async function createRecipe() {
   const data = await response.json();
   console.log(data);
 }
+
 
 function gatherFormData() {
   const title = document.querySelector("#title").value;
@@ -146,6 +147,7 @@ function createRecipeView({ title, ingredients, instructions, image, id }) {
 
   return article;
 }
+editRecipeButton.addEventListener("click", ()=>{editRecipe(id)});
 
 function createIngredientsList(ingredients) {
   const ul = document.createElement("ul");
