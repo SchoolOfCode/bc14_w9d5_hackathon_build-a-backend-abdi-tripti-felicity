@@ -37,6 +37,17 @@ function handleSubmit(event) {
   document.querySelector("#image-url").value = "";
 }
 
+async function deleteRecipe (title, recipeId){
+    const response = await fetch(`${url}/api/recipes/${title}`, {
+      method: "DELETE",
+    });
+    const data = await response.json();
+    console.log(data);
+    // Refresh the recipes list after deleting
+    getRecipes();
+  }
+
+
 async function createRecipe() {
   console.log(gatherFormData());
   const response = await fetch(`${url}/api/recipes`, {
@@ -75,7 +86,7 @@ async function getRecipes() {
   payload.forEach(renderRecipe);
 }
 
-function renderRecipe(recipe) {
+function renderRecipe(recipe, recipeId) {
   // const article = createRecipeView(recipe);
   // recipesSection.appendChild(article);
   const article = createRecipeView(recipe);
@@ -83,7 +94,9 @@ function renderRecipe(recipe) {
   recipeContainer.appendChild(article);
   recipesSection.appendChild(recipeContainer);
 }
-
+//  const deleteButton = document.createElement("button");
+  // / deleteButton.innerText = "Delete";
+  //  deleteButton.addEventListener("click", () => deleteRecipe(title));
 function createRecipeView({ title, ingredients, instructions, image }) {
   const article = document.createElement("article");
   const h2 = document.createElement("h2");
@@ -98,6 +111,11 @@ function createRecipeView({ title, ingredients, instructions, image }) {
   article.appendChild(img);
   article.appendChild(list);
   article.appendChild(p);
+  const deleteButton = document.createElement("button");
+  deleteButton.innerText = "Delete recipe";
+  deleteButton.addEventListener("click", () => (title, recipeId));
+  article.appendChild(deleteButton)
+
   return article;
 }
 
