@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 
 import {
   getRecipes,
@@ -22,22 +22,29 @@ let newRecipe = {
 app.use(express.static("public"));
 app.use(express.json());
 
+async function responseObject(success, payload){
+  return {
+    success: success,
+    payload: payload
+  }
+}
+
 //Get all recipes
 app.get("/api/recipes", async (req,res) => {
   let allRecipes = await getRecipes()
-  res.json(allRecipes)
+  res.json(await responseObject(true, allRecipes))
   console.log(allRecipes)
 })
 //Get a recipe by ID if it exists
 app.get("/api/recipes/:id", async (req,res) => {
 let recipeID = req.params.id
 let recipe = await getRecipeByID(recipeID)
-res.json(recipe)
+res.json(await responseObject(true, recipe))
 })
 //Create a new recipe
 app.post("/api/recipes", async (req,res) =>{
  let addedRecipe = await createRecipe(newRecipe) 
- res.json(addedRecipe)
+ res.json(await responseObject(true, addedRecipe))
  console.log(req.body)
 })
 
@@ -45,7 +52,7 @@ app.post("/api/recipes", async (req,res) =>{
 app.patch("/api/recipes/:id", async (req,res) => {
  let id = req.params.id
  let updatedRecipe = await updateRecipeByID(id, req.body)
- res.json(updatedRecipe)
+ res.json(await responseObject(true, updatedRecipe))
 })
 
 
@@ -54,7 +61,7 @@ app.patch("/api/recipes/:id", async (req,res) => {
 app.delete("/api/recipes/:id", async (req, res) => {
   let id = req.params.id
   let deletedRecipe = await deleteRecipeByID(id)
-  res.json(deletedRecipe)
+  res.json(await responseObject(true, deletedRecipe))
 })
 
 
