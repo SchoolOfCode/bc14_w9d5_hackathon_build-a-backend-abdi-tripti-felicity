@@ -16,8 +16,6 @@ let allRecipes = await getRecipes()
 app.use(express.static("public"));
 app.use(express.json());
 
-//
-
 async function responseObject(success, payload){
   return {
     success: success,
@@ -25,12 +23,14 @@ async function responseObject(success, payload){
   }
 }
 
+//Use morgan middleware to log requests
 //Get all recipes
-app.get("/api/recipes", async (req,res) => {
+app.get("/api/recipes", morgan("tiny"), async (req,res) => {
   let allRecipes = await getRecipes()
   res.json(await responseObject(true, allRecipes))
   console.log(allRecipes)
 })
+
 //Get a recipe by ID if it exists
 app.get("/api/recipes/:id", async (req,res) => {
 let recipeID = req.params.id
