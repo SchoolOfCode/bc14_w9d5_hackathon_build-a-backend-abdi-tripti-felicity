@@ -6,10 +6,12 @@ const submitButton = document.querySelector("button[type='submit']");
 const ingredientButton = document.querySelector("#add-ingredient");
 const ingredientsInput = document.querySelector("#ingredients-input");
 const ingredientsList = document.querySelector("#ingredients-list");
+const editRecipeButton = document.querySelector("#edit-button");
 
 ingredientButton.addEventListener("click", addIngredient);
 submitButton.addEventListener("click", handleSubmit);
 getRecipeButton.addEventListener("click", handleClick);
+editRecipeButton.addEventListener("click", editRecipe);
 
 function addIngredient(event) {
   event.preventDefault();
@@ -47,6 +49,30 @@ async function deleteRecipe (recipeId){
     getRecipes();
   }
 
+async function fillEditInput (recipeId , title, ingredients, instructions, image){
+  document.querySelector("#title").value = title;
+  document.querySelector("#image-url").value = image;
+  // TODO: INGREDIENTS NEEDS FIXING
+  // document.querySelector("#ingredients-list").value = [...ingredients];
+  // ingredients.forEach(ingredient => document.querySelector("#ingredients-list").value = ingredient);
+  document.querySelector("#instructions").value = instructions;
+  getRecipes();
+}
+
+async function editRecipe() {
+  console.log(gatherFormData());
+  const response = await fetch(`${url}/api/recipes`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(gatherFormData()),
+  });
+  const data = await response.json();
+  console.log(data);
+}
+
+function handleEditSubmit(event) {
+  event.preventDefault();
+  editRecipe();
 
 async function createRecipe() {
   console.log(gatherFormData());
@@ -114,6 +140,13 @@ function createRecipeView({ title, ingredients, instructions, image, id }) {
   deleteButton.addEventListener("click", () => (deleteRecipe(id)));
   article.appendChild(deleteButton)
 
+  //Add edit recipe button and listener
+  const editButton = document.createElement("button");
+  editButton.innerText = "Edit recipe";
+  editButton.addEventListener("click", () => (fillEditInput(id, title, ingredients, instructions, image)));
+  article.appendChild(editButton)
+
+
   return article;
 }
 
@@ -131,4 +164,4 @@ function createIngredient(ingredient) {
   return li;
 }
 
-getRecipes();
+getRecipes();}
